@@ -18,9 +18,7 @@ function CouponCard() {
         <CardContent>
           {/* Coupon Code */}
           <Box sx={styles.topRow}>
-            <Typography variant="h6" >
-              SAVE20
-            </Typography>
+            <Typography variant="h6">SAVE20</Typography>
             <IconButton size="small">
               <ContentCopyIcon fontSize="small" />
             </IconButton>
@@ -74,7 +72,7 @@ const styles = {
     borderRadius: 2,
   },
   company: {
-    mt: {mt: 0.5},
+    mt: { mt: 0.5 },
   },
   chip: {
     mt: 1,
@@ -86,10 +84,10 @@ const styles = {
   },
   datesBox: {
     display: "flex",
-    gap: 1, 
-  }, 
+    gap: 1,
+  },
   tagsBox: {
     display: "flex",
-    gap:1, 
+    gap: 1,
   },
 };
