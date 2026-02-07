@@ -5,7 +5,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 
-export default function Header() {
+type HeaderProps = {
+  onLoginClick: () => void;
+};
+
+export default function Header({onLoginClick}: HeaderProps) {
   return (
     <AppBar position="sticky" elevation={1} sx={styles.appBar}>
       <Container maxWidth="md" disableGutters>
@@ -27,7 +31,7 @@ export default function Header() {
             <Box sx={styles.spacer} />
 
             <Button color="inherit">Add Coupon</Button>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={onLoginClick}>Login</Button>
           </Toolbar>
         </Box>
       </Container>

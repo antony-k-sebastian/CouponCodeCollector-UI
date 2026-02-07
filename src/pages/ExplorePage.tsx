@@ -3,12 +3,15 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import CouponCard from "../components/CouponCard";
 import Footer from "../components/Footer";
+import { useState } from "react";
+import AuthModal from "../modals/AuthModal";
 
 export default function ExplorePage() {
+  const[authOpen, setAuthOpen] = useState(false);
   return (
     <>
-      <Header />
-
+      <Header onLoginClick={() => setAuthOpen(true)} />
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
       <Container maxWidth="md" sx={styles.container}>
         <Box sx={styles.searchBar}>
           <SearchBar placeholder="Search by company..." />
