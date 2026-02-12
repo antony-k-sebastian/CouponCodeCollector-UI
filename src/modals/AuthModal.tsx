@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,9 +8,9 @@ import {
   Tabs,
   Box,
   TextField,
+  Button,
 } from "@mui/material";
-import Button from "@mui/material/Button";
-import { useState } from "react";
+import {login, register} from "../api/auth"; 
 
 type AuthModalProps = {
   open: boolean;
@@ -19,6 +19,10 @@ type AuthModalProps = {
 
 function AuthModal({ open, onClose }: AuthModalProps) {
   const [mode, setMode] = useState<"login" | "register">("login");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
       <DialogTitle sx={styles.title}>Welcome</DialogTitle>
@@ -33,16 +37,38 @@ function AuthModal({ open, onClose }: AuthModalProps) {
         </Tabs>
         <Box sx={styles.fields}>
           {mode === "register" && (
-            <TextField label="Name" fullWidth size="small" />
+            <TextField 
+            label="Username" 
+            fullWidth 
+            size="small"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            />
           )}
-          <TextField label="Email" type="email" fullWidth size="small" />
-          <TextField label="Password" type="password" fullWidth size="small" />
+          <TextField 
+          label="Email" 
+          type="email"
+          fullWidth
+          size="small" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField 
+          label="Password" 
+          type="password" 
+          fullWidth
+          size="small" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          />
           {mode === "register" && (
             <TextField
               label="Confirm Password"
               type="password"
               fullWidth
               size="small"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           )}
         </Box>
@@ -51,7 +77,23 @@ function AuthModal({ open, onClose }: AuthModalProps) {
         <Button onClick={onClose} color="primary">
           Close
         </Button>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={async () => {
+          try {
+            if (mode === "register") {
+              if(password !== confirmPassword){
+                console.error("Passwords do not match");
+                return;
+              }
+              await register({username, email, password});
+            } else {
+              await login({email, password});
+            }
+
+            onClose();
+          } catch (error) {
+            console.error("Authentication error:", error);
+          }
+        }}>
           {mode === "login" ? "Login" : "Register"}
         </Button>
       </DialogActions>
