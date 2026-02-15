@@ -86,7 +86,8 @@ function AuthModal({ open, onClose }: AuthModalProps) {
               }
               await register({username, email, password});
             } else {
-              await login({email, password});
+              const data = await login({email, password});
+              localStorage.setItem("token", data.token);
             }
 
             onClose();

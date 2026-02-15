@@ -8,6 +8,7 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import {addCoupon} from "../api/coupon";
 
 type AddCouponPayload = {
   code: string;
@@ -80,8 +81,8 @@ function AddCouponModal({ open, onClose, onSubmit }: AddCouponModalProps) {
           fullWidth
           size="small"
         >
-          <MenuItem value="public">Public</MenuItem>
-          <MenuItem value="private">Private</MenuItem>
+          <MenuItem value="PUBLIC">PUBLIC</MenuItem>
+          <MenuItem value="PRIVATE">PRIVATE</MenuItem>
         </TextField>
 
         <TextField
@@ -112,7 +113,7 @@ function AddCouponModal({ open, onClose, onSubmit }: AddCouponModalProps) {
         </Button>
         <Button
           onClick={async () => {
-            await onSubmit({
+            await addCoupon({
               code,
               description,
               company,
