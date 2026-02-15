@@ -11,14 +11,29 @@ import {
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-function CouponCard() {
+type Coupon = {
+  id: number;
+  code: string;
+  company: string;
+  description: string;
+  publishedAt: string;
+  expiryDate: string;
+  visibility: string;
+  usabilioty: string;
+};
+
+function CouponCard({ coupon }: { coupon: Coupon }) {
+  const published = coupon.createdAt
+    ? coupon.createdAt.split("T")[0].split(" ")[0]
+    : "—";
+
   return (
     <Container maxWidth="sm" sx={styles.container}>
       <Card sx={styles.card}>
         <CardContent>
           {/* Coupon Code */}
           <Box sx={styles.topRow}>
-            <Typography variant="h6">SAVE20</Typography>
+            <Typography variant="h6">{coupon.code}</Typography>
             <IconButton size="small">
               <ContentCopyIcon fontSize="small" />
             </IconButton>
@@ -26,30 +41,34 @@ function CouponCard() {
 
           {/* Company */}
           <Typography variant="subtitle1" sx={styles.company}>
-            Amazon
+            {coupon.company}
           </Typography>
 
           {/* Description */}
           <Typography variant="body2" color="text.secondary">
-            Get 20% off on electronics
+            {coupon.description}
           </Typography>
 
           {/* Dates */}
           <Box sx={styles.datesBox}>
-            <Typography variant="caption">Published: 01/01/2024</Typography>
-            <Typography variant="caption">Expires: 01/01/2025</Typography>
+            <Typography variant="caption">
+              Published: {published}
+            </Typography>
+            <Typography variant="caption">
+              Expires: {coupon.expiryDate}
+            </Typography>
           </Box>
 
           {/* Tags */}
           <Box sx={styles.tagsBox}>
             <Chip
-              label="Public"
+              label={coupon.visibility}
               color="success"
               size="small"
               sx={styles.chip}
             />
             <Chip
-              label="Single-use"
+              label={coupon.usageType}
               color="success"
               size="small"
               sx={styles.chip}

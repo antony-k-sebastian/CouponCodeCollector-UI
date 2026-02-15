@@ -3,13 +3,19 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import CouponCard from "../components/CouponCard";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import AuthModal from "../modals/AuthModal";
 import AddCouponModal from "../modals/AddCouponModal";
+import {getPublicCoupons} from "../api/publicCoupons";
 
 export default function ExplorePage() {
   const [authOpen, setAuthOpen] = useState(false);
   const [openAddCoupon, setOpenAddCoupon] = useState(false);
+  const [coupons, setCoupons] = useState([]);
+  useEffect(() => {
+    getPublicCoupons().then(setCoupons).catch(console.error);
+  }, []);
+
   return (
     <>
       <Header
@@ -31,10 +37,9 @@ export default function ExplorePage() {
         </Box>
 
         <Box sx={styles.couponList}>
-          <CouponCard />
-          <CouponCard />
-          <CouponCard />
-          <CouponCard />
+          {coupons.map((c) => (
+            <CouponCard key={c.id} coupon={c} />
+          ))}
         </Box>
       </Container>
       {/* <Footer /> */}
