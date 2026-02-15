@@ -8,7 +8,7 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import {addCoupon} from "../api/coupon";
+import {addCoupon} from "../api/createCoupon";
 
 type AddCouponPayload = {
   code: string;
