@@ -10,7 +10,8 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import {login, register} from "../api/auth"; 
+import {login, register} from "../api/auth";
+import { useAuth } from "../auth/authContext"; 
 
 type AuthModalProps = {
   open: boolean;
@@ -23,6 +24,7 @@ function AuthModal({ open, onClose }: AuthModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const {setToken} = useAuth();
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
       <DialogTitle sx={styles.title}>Welcome</DialogTitle>
@@ -87,7 +89,7 @@ function AuthModal({ open, onClose }: AuthModalProps) {
               await register({username, email, password});
             } else {
               const data = await login({email, password});
-              localStorage.setItem("token", data.token);
+              setToken(data.token);
             }
 
             onClose();
