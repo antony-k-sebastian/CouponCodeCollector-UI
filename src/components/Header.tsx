@@ -8,9 +8,16 @@ import Container from "@mui/material/Container";
 type HeaderProps = {
   onLoginClick: () => void;
   onAddCouponClick?: () => void;
+  onExploreClick: () => void;
+  onMyCouponClick: () => void;
 };
 
-export default function Header({onLoginClick, onAddCouponClick}: HeaderProps) {
+export default function Header({
+  onLoginClick,
+  onAddCouponClick,
+  onExploreClick,
+  onMyCouponClick,
+}: HeaderProps) {
   return (
     <AppBar position="sticky" elevation={1} sx={styles.appBar}>
       <Container maxWidth="md" disableGutters>
@@ -25,14 +32,22 @@ export default function Header({onLoginClick, onAddCouponClick}: HeaderProps) {
           {/* Nav + Search + Actions */}
           <Toolbar disableGutters>
             <Box sx={styles.navButtons}>
-              <Button color="inherit">Explore</Button>
-              <Button color="inherit">My Coupons</Button>
+              <Button color="inherit" onClick={onExploreClick}>
+                Explore
+              </Button>
+              <Button color="inherit" onClick={onMyCouponClick}>
+                My Coupons
+              </Button>
             </Box>
 
             <Box sx={styles.spacer} />
 
-            <Button color="inherit" onClick={onAddCouponClick}>Add Coupon</Button>
-            <Button color="inherit" onClick={onLoginClick}>Login</Button>
+            <Button color="inherit" onClick={onAddCouponClick}>
+              Add Coupon
+            </Button>
+            <Button color="inherit" onClick={onLoginClick}>
+              Login
+            </Button>
           </Toolbar>
         </Box>
       </Container>
